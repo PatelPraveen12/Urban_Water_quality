@@ -12,8 +12,10 @@ def home():
     return render_template("web.html")
 
 @app.route('/predict',methods = ['GET','POST'])
-def predict() :
-    year = request.form["year"]
+def predict():
+
+    if request.method == "POST":
+            year = request.form["year"]
     do = request.form["do"]
     ph = request.form["ph"]
     nco = request.form["nco"]
@@ -36,6 +38,8 @@ def predict() :
         return render_template("web.html",showcase = 'Marginal,The predicted value is '+str(y_pred))
     else :
         return render_template("web.html",showcase = 'Poor,The predicted value is '+str(y_pred))
+
+
     
     
 if __name__ == "__main__":
