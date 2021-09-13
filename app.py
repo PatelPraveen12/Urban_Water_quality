@@ -1,16 +1,17 @@
-import numpy as np
-from flask import Flask,render_template,request
+from flask import Flask, escape, request, render_template
 import pickle
+
+import numpy as np
 
 
 app = Flask(__name__)
 model = pickle.load(open('wqi.pkl','rb'))
 
 @app.route('/')
-def home() :
+def home():
     return render_template("web.html")
 
-@app.route('/predict',methods = ['POST'])
+@app.route('/predict',methods = ['GET','POST'])
 def predict() :
     year = request.form["year"]
     do = request.form["do"]
@@ -37,5 +38,5 @@ def predict() :
         return render_template("web.html",showcase = 'Poor,The predicted value is '+str(y_pred))
     
     
-if __name__ == '__main__' :
-    app.run(debug = False,port=5000)
+if __name__ == "__main__":
+    app.run(debug=True)
